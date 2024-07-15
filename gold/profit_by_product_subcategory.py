@@ -12,7 +12,7 @@ table_name = "gold.profit_by_product_subcategory"
 
 # COMMAND ----------
 
-dbutils.widgets.text("silver_processing_date", "2024-03-19")
+dbutils.widgets.text("silver_processing_date", "2024-07-14")
 bronze_processing_date = dbutils.widgets.get('silver_processing_date')
 
 # COMMAND ----------

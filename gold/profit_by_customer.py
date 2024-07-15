@@ -12,7 +12,7 @@ table_name = "gold.profit_by_customer"
 
 # COMMAND ----------
 
-dbutils.widgets.text("silver_processing_date", "2024-03-19")
+dbutils.widgets.text("silver_processing_date", "2024-07-14")
 bronze_processing_date = dbutils.widgets.get('silver_processing_date')
 
 # COMMAND ----------
@@ -24,7 +24,7 @@ enriched_order_df = (spark.read
 
 # COMMAND ----------
 
-from pyspark.sql.functions import sum, round, first
+from pyspark.sql.functions import col,sum, round, first
 final_df = (enriched_order_df
             .groupby(col("customer_id"))
             .agg(

@@ -22,7 +22,7 @@ customer_table_name = "silver.customers_master"
 
 # COMMAND ----------
 
-dbutils.widgets.text("bronze_processing_date", "2024-03-18")
+dbutils.widgets.text("bronze_processing_date", "2024-07-14")
 bronze_processing_date = dbutils.widgets.get('bronze_processing_date')
 
 # COMMAND ----------

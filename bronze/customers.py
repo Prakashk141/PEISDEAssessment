@@ -40,8 +40,12 @@ customers_df = (customers_df
 
 # COMMAND ----------
 
+# MAGIC %run ../helper/common
+
+# COMMAND ----------
+
 import re
-customers_final_df = customers_df.toDF(*[re.sub('[ ,-;{}()\n\t="]', '_', c.lower()) for c in customers_df.columns])
+customers_final_df = normalizeColumnNames(customers_df)
 
 # COMMAND ----------
 

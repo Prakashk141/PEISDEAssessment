@@ -36,8 +36,12 @@ orders_df = (orders_df
 
 # COMMAND ----------
 
+# MAGIC %run ../helper/common
+
+# COMMAND ----------
+
 import re
-orders_final_df = orders_df.toDF(*[re.sub('[ ,-;{}()\n\t="]', '_', c.lower()) for c in orders_df.columns])
+orders_final_df = normalizeColumnNames(orders_df)
 
 # COMMAND ----------
 

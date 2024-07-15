@@ -36,8 +36,12 @@ products_df = (products_df
 
 # COMMAND ----------
 
+# MAGIC %run ../helper/common
+
+# COMMAND ----------
+
 import re
-products_final_df = products_df.toDF(*[re.sub('[ ,-;{}()\n\t="]', '_', c.lower()) for c in products_df.columns])
+products_final_df = normalizeColumnNames(products_df)
 
 # COMMAND ----------
 

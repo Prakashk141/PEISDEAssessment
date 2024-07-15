@@ -20,7 +20,7 @@ table_name = "silver.products_master"
 
 # COMMAND ----------
 
-dbutils.widgets.text("bronze_processing_date", "2024-03-18")
+dbutils.widgets.text("bronze_processing_date", "2024-07-14")
 bronze_processing_date = dbutils.widgets.get('bronze_processing_date')
 
 # COMMAND ----------
@@ -77,7 +77,6 @@ replace_null_df = (latest_products
                    .withColumn("sub_category", when(col("sub_category").isNull(), 'NA').otherwise(col("sub_category")))
                    .withColumn("_processing_date", processing_date)
                    )
-display(replace_null_df)
 
 # COMMAND ----------
 
@@ -86,7 +85,7 @@ display(replace_null_df)
 
 # COMMAND ----------
 
-# MAGIC %run ./functions
+# MAGIC %run ../helper/functions
 
 # COMMAND ----------
 

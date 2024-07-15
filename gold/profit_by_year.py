@@ -12,7 +12,7 @@ table_name = "gold.profit_by_year"
 
 # COMMAND ----------
 
-dbutils.widgets.text("silver_processing_date", "2024-03-19")
+dbutils.widgets.text("silver_processing_date", "2024-07-14")
 bronze_processing_date = dbutils.widgets.get('silver_processing_date')
 
 # COMMAND ----------
@@ -21,22 +21,30 @@ bronze_processing_date = dbutils.widgets.get('silver_processing_date')
 
 from pyspark.sql.functions import to_date, col
 
-enriched_order_df = (spark.read
-             .table(silver_table_name)
-            )
+def getOrdersData():
+  return (spark.read
+          .table(silver_table_name)
+        )
+  
+enriched_order_df = getOrdersData()
 
 # COMMAND ----------
 
 from pyspark.sql.functions import year
-year_col_df = enriched_order_df.withColumn("year", year(col("order_date")))
+from pyspark.sql.functions import sum, round
 
 # COMMAND ----------
 
-from pyspark.sql.functions import sum, round
-final_df = (year_col_df
+def generateYearlyProfit(input_df):
+  year_col_df = input_df.withColumn("year", year(col("order_date")))
+  return (year_col_df
             .groupby(col("year"))
             .agg(round(sum(col("profit")), 2).alias("profit_by_year"))
           )
+
+# COMMAND ----------
+
+final_df = generateYearlyProfit(enriched_order_df)
 
 # COMMAND ----------
 
